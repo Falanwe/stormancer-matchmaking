@@ -1,3 +1,6 @@
+using Stormancer.Server;
+using System.Collections.Generic;
+
 namespace Test
 {
     public class Startup
