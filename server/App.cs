@@ -8,7 +8,7 @@ namespace Test
 {
     public class Startup
     {
-        public void Build(IAppBuilder builder)
+        public void Run(IAppBuilder builder)
         {
             builder.SceneTemplate("test-template", scene =>
             {
