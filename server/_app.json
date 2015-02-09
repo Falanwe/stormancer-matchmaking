@@ -1,6 +1,6 @@
 {
     "host": {
-        "version": "1.0.0.0",
-        "type": "net45"
+        "version": "1.*",
+        "type": "NET45"
     }
 }
