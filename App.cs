@@ -1,6 +1,5 @@
 using Stormancer;
 using Stormancer.Core;
-using Stormancer.Server;
 using System.Collections.Generic;
 
 
@@ -14,7 +13,7 @@ namespace Test
             {
                 scene.AddRoute("echo.in", p =>
                 {
-                    scene.Broadcast("echo.out", s => p.Stream.CopyTo(s), PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE);
+                    scene.Broadcast("echo.out", s => p.Stream.CopyTo(s,(int)p.Stream.Length), PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE);
                 });
             },
             new Dictionary<string, string> { { "description", "Broadcasts data sent to the route 'echo.in' to all connected users on the route 'echo.out'." } });
