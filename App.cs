@@ -1,5 +1,6 @@
 using Stormancer;
 using Stormancer.Core;
+using Stormancer.Matchmaking;
 using System.Collections.Generic;
 
 
@@ -9,6 +10,8 @@ namespace Test
     {
         public void Run(IAppBuilder builder)
         {
+            builder.AddPlugin(new MatchmakingPlugin());
+
             builder.SceneTemplate("test-template", scene =>
             {
                 scene.AddRoute("echo.in", p =>
