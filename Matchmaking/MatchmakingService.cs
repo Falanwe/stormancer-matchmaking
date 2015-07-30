@@ -47,11 +47,11 @@ namespace Stormancer.Matchmaking
 
             this._applicationManagementClient = ApplicationClient.ForApi(config.account, config.application, config.key);
 
-            var matchmaker = await this._applicationManagementClient.GetScene("matchmaker");
-            if (matchmaker == null)
-            {
-                await this._applicationManagementClient.CreateScene("matchmaker", "matchmaker-template");
-            }
+            //var matchmaker = await this._applicationManagementClient.GetScene("matchmaker");
+            //if (matchmaker == null)
+            //{
+            //    await this._applicationManagementClient.CreateScene("matchmaker", "matchmaker-template");
+            //}
 
             this._isRunning = true;
             this._runningMatch = this.Match();

@@ -16,11 +16,11 @@ namespace Stormancer.Matchmaking
         public void Build(HostPluginBuildContext ctx)
         {
             ctx.HostStarting += HostStarting;
-
+            
         }
 
         private void HostStarting(IHost host)
-        {
+        {           
             host.AddSceneTemplate("matchmaker-template", matchmakingScene =>
             {
                 this._matchmakingService = new MatchmakingService(matchmakingScene);
