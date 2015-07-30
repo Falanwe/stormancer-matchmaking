@@ -20,7 +20,7 @@ namespace Stormancer.Matchmaking
 
         private readonly ConcurrentDictionary<IScenePeerClient, TaskCompletionSource<SceneResponse>> _waitingClients = new ConcurrentDictionary<IScenePeerClient, TaskCompletionSource<SceneResponse>>();
         private Task _runningMatch;
-        private bool _isRunning= false;
+        private bool _isRunning = false;
 
         private ulong _currentIndex = 0;
 
@@ -72,15 +72,15 @@ namespace Stormancer.Matchmaking
 
             return tcs.Task;
         }
-     
+
 
         private async Task Match()
         {
-            while(this._isRunning)
-            { 
+            while (this._isRunning)
+            {
 
-            await this.MatchOnce();
-            await Task.Delay(this.Period);
+                await this.MatchOnce();
+                await Task.Delay(this.Period);
             }
         }
 
@@ -106,8 +106,8 @@ namespace Stormancer.Matchmaking
                 }
                 else
                 {
-                    var sceneId = (string)config.scenetype + this._currentIndex;
-                    await this._applicationManagementClient.CreateScene(sceneId, config.scenetype, isPublic : false, isPersistent : false);
+                    var sceneId = (string)config.scenetemplate + this._currentIndex;
+                    await this._applicationManagementClient.CreateScene(sceneId, config.scenetemplate, isPublic: false, isPersistent: false);
 
                     this._scenesCreationTimes.Add(this._currentIndex, DateTime.UtcNow);
 
@@ -133,7 +133,7 @@ namespace Stormancer.Matchmaking
             {
                 var logger = this._matchmakingScene.GetComponent<ILogger>();
                 logger.Log(LogLevel.Error, "matchmaker", "Matchmaker encountered an exception.", new { exception = ex });
-                
+
             }
         }
     }
