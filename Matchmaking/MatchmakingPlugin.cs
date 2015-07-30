@@ -16,7 +16,7 @@ namespace Stormancer.Matchmaking
         public void Build(HostPluginBuildContext ctx)
         {
             ctx.HostStarting += HostStarting;
-            
+            ctx.HostShuttingDown += HostShuttingDown;
         }
 
         private void HostStarting(IHost host)
@@ -33,8 +33,12 @@ namespace Stormancer.Matchmaking
         private async Task MatchmakingRequestScene(RequestContext<IScenePeerClient> request)
         {
             var sceneInfo = await this._matchmakingService.GetSceneForClient(request.RemotePeer, request.CancellationToken);
-
             request.SendValue(sceneInfo);
+        }
+
+        private void HostShuttingDown(IHost host)
+        {
+            var _ = this._matchmakingService.Stop();
         }
     }
 }

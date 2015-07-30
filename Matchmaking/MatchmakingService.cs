@@ -113,7 +113,7 @@ namespace Stormancer.Matchmaking
 
                     await Task.WhenAll(players.Select(async kvp =>
                     {
-                        var connectionToken = await this._applicationManagementClient.CreateConnectionToken(sceneId, kvp.Key.GetUserData<string>());
+                        var connectionToken = await this._applicationManagementClient.CreateConnectionToken(sceneId, kvp.Key.UserData, kvp.Key.ContentType);
                         kvp.Value.SetResult(new SceneResponse { SceneId = sceneId, ConnectionToken = connectionToken });
                     }));
 
@@ -122,7 +122,7 @@ namespace Stormancer.Matchmaking
             }
         }
 
-        private async Task Stop()
+        public async Task Stop()
         {
             this._isRunning = false;
             try
