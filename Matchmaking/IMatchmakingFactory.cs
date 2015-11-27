@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Stormancer.Matchmaking
 {
-    public class SceneResponse
+    public interface IMatchmakingFactory
     {
-        public string SceneId { get; set; }
-
-        public string ConnectionToken { get; set; }
+        IMatchmakingService CreateMatchmakingService();
     }
 }

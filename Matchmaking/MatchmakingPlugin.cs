@@ -11,29 +11,36 @@ namespace Stormancer.Matchmaking
 {
     public class MatchmakingPlugin : IHostPlugin
     {
-        private MatchmakingService _matchmakingService;
+        private readonly IMatchmakingFactory _factory;
+        private IMatchmakingService _matchmakingService;
+
+        public MatchmakingPlugin(IMatchmakingFactory factory)
+        {
+            _factory = factory;
+        }
 
         public void Build(HostPluginBuildContext ctx)
         {
-            ctx.HostStarting += HostStarting;
+            ctx.HostStarted += HostStarted;
             ctx.HostShuttingDown += HostShuttingDown;
         }
 
-        private void HostStarting(IHost host)
-        {           
+        private void HostStarted(IHost host)
+        {
             host.AddSceneTemplate("matchmaker-template", matchmakingScene =>
             {
-                this._matchmakingService = new MatchmakingService(matchmakingScene);
+                if (_matchmakingService == null)
+                {
+                    throw new InvalidOperationException("There may only be one matchamking scene.");
+                }
 
-                matchmakingScene.AddProcedure("matchmaking.requestScene", MatchmakingRequestScene);
-                
+                _matchmakingService = _factory.CreateMatchmakingService();
+                _matchmakingService.Init(matchmakingScene);
+
+
+                matchmakingScene.AddProcedure("matchmaking.request", _matchmakingService.FindMatch);
+
             });
-        }
-
-        private async Task MatchmakingRequestScene(RequestContext<IScenePeerClient> request)
-        {
-            var sceneInfo = await this._matchmakingService.GetSceneForClient(request.RemotePeer, request.CancellationToken);
-            request.SendValue(sceneInfo);
         }
 
         private void HostShuttingDown(IHost host)

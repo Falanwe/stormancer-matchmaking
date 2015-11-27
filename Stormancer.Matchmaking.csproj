@@ -38,22 +38,24 @@
     <Reference Include="Microsoft.Owin">
       <HintPath>packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Owin">
       <HintPath>packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Stormancer.Core">
-      <HintPath>packages\Stormancer.Server.1.3.2.0\lib\Net45\Stormancer.Core.dll</HintPath>
+    <Reference Include="Stormancer.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Stormancer.Core.1.1.0.0\lib\net45\Stormancer.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Stormancer.Management.Client, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Stormancer.Management.Client.1.2.1.0\lib\net45\Stormancer.Management.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Stormancer.Server">
-      <HintPath>packages\Stormancer.Server.1.3.2.0\lib\Net45\Stormancer.Server.dll</HintPath>
+    <Reference Include="Stormancer.Server, Version=1.3.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Stormancer.Server.1.3.7.0\lib\net45\Stormancer.Server.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -72,14 +74,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Configuration\ConfigurationManagerPlugin.cs" />
+    <Compile Include="Configuration\ConfigurationService.cs" />
+    <Compile Include="Configuration\IConfigurationRefresh.cs" />
+    <Compile Include="Matchmaking\Default\DefaultMatchmaker.cs" />
+    <Compile Include="Matchmaking\Default\DefaultMatchmakingDataExtractor.cs" />
+    <Compile Include="Matchmaking\Default\DefaultMatchmakingResolver.cs" />
+    <Compile Include="Matchmaking\Interfaces\IMatchmaker.cs" />
+    <Compile Include="Matchmaking\Interfaces\IMatchmakingDataExtractor.cs" />
+    <Compile Include="Matchmaking\IMatchmakingFactory.cs" />
+    <Compile Include="Matchmaking\Interfaces\IMatchmakingResolver.cs" />
+    <Compile Include="Matchmaking\IMatchmakingContext.cs" />
+    <Compile Include="Matchmaking\IMatchmakingService.cs" />
+    <Compile Include="Matchmaking\MatchmakingFactory.cs" />
     <Compile Include="Matchmaking\MatchmakingPlugin.cs" />
     <Compile Include="Matchmaking\MatchmakingService.cs" />
-    <Compile Include="Matchmaking\SceneResponse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\_config.json" />
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="_app.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\" />
+    <Folder Include="Dependencies\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
